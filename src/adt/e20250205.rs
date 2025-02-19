@@ -1,3 +1,4 @@
+#![allow(non_snake_case)]
 use proconio::input;
 use itertools::{Itertools,sorted};
 use std::collections::{HashMap, HashSet, BTreeSet};
