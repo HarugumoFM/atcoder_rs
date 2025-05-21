@@ -10,33 +10,15 @@ use std::cmp::max;
 
 fn main() {
   input! {
-    n: usize,
-    m: usize,
-    p: i64,
-    mut a: [i64; n],
-    mut b: [i64; m],
+    a: f64,
+    b: f64,
   }
-  a.sort();
-  b.sort();
-  let mut sums = vec![0; m+1];
-  let mut sum = 0;
-  for i in 0..m {
-    sum += b[i];
-    sums[i+1] = sum;
-  }
-  let mut ans = 0;
-  let mut index = (m-1) as i64;
-  for i in 0..n {
-    while index>=0 && a[i] + b[index as usize] > p {
-      index -= 1;
-    }
-    //println!("{} {} {}", a[i], index, sums[index as usize+1]);
-    if index <0 {
-      ans += p* m as i64;
-    } else {
-      ans += p*(m as i64 -index-1) + sums[index as usize+1] + a[i] * (index+1) as i64;
-    }
-  }
+  let mut x = (a/2.0/b).powf(2.0/3.0)-1.0;
+  let mut rounded = x.round();
+  let mut ceil = x.ceil();
+  let mut r1 = b*rounded + a/(1.0+rounded).powf(1.0/2.0);
+  let mut r2 = b*ceil + a/(1.0+ceil).powf(1.0/2.0);
+  let mut ans = if r1<=r2 { r1 } else { r2};
   println!("{}", ans);
-
 }
+
