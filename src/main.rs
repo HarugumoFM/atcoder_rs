@@ -9,16 +9,35 @@ use std::cmp::max;
 
 
 fn main() {
-  input! {
-    a: f64,
-    b: f64,
+  input!{
+    N: usize,
+    M: usize,
+    D: i64,
+    mut A: [i64; N],
+    mut B: [i64; M],
   }
-  let mut x = (a/2.0/b).powf(2.0/3.0)-1.0;
-  let mut rounded = x.round();
-  let mut ceil = x.ceil();
-  let mut r1 = b*rounded + a/(1.0+rounded).powf(1.0/2.0);
-  let mut r2 = b*ceil + a/(1.0+ceil).powf(1.0/2.0);
-  let mut ans = if r1<=r2 { r1 } else { r2};
-  println!("{}", ans);
+  A.sort();
+  B.sort();
+  let mut a_index = N -1;
+  let mut b_index = M -1;
+  let mut res = -1 as i64;
+  while(a_index >= 0 && b_index >= 0) {
+    if (A[a_index] - B[b_index]).abs() <= D {
+      res = A[a_index]+B[b_index];
+      break;
+    } 
+    if a_index == 0 && b_index == 0 {
+      break;
+    } else if a_index == 0 {
+      b_index -= 1;
+    } else if b_index == 0 {
+      a_index -= 1;
+    } else if A[a_index] - B[b_index] > D {
+      a_index -= 1;
+    } else {
+      b_index -= 1;
+    }
+  }
+  println!("{}", res);
 }
 
