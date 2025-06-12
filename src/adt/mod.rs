@@ -16,3 +16,4 @@ pub mod m20250423;
 pub mod m20250514r;
 pub mod m20250520;
 pub mod m20250529;
+pub mod m20250612;
